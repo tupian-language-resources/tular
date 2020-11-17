@@ -8,9 +8,10 @@ from clld.db.models import common
 from clld.db.util import compute_language_sources
 from clld.lib import bibtex
 from nameparser import HumanName
+from pycldf import Dataset
 import tular
 
-from tular.models import Doculect, Word, Concept
+from tular.models import Doculect, Word, Concept, Example
 from .metadata import CONTRIBUTORS
 
 
@@ -43,7 +44,7 @@ def add_meta_data(session, data):
 
     for cid, name in CONTRIBUTORS.items():
         data.add(common.Contributor, cid, id=cid, name=name)
-    for i, cid in enumerate(['gerardi', 'reichert']):
+    for i, cid in enumerate(['gerardi', 'reichert', 'aragon']):
         DBSession.add(common.Editor(dataset=dataset, contributor=data['Contributor'][cid], ord=i))
 
     session.add(dataset)
@@ -97,6 +98,17 @@ def main(args):
             latitude=row['Latitude'],
             jsondata=dict(icon=icons[len(subgroups) - 1])
         )
+
+    tudet = Dataset.from_metadata(args.cldf.directory.parent.parent / 'tudet' / 'cldf' / 'Generic-metadata.json')
+    for row in tudet['ExampleTable']:
+        DBSession.add(Example(
+            id=row['ID'],
+            name=row['Primary_Text'],
+            description=row['Translated_Text'],
+            language=data['Doculect'][row['Language_ID']],
+            conllu=row['conllu']))
+    #return
+
     for row in args.cldf['ParameterTable']:
         data.add(
             Concept,
@@ -137,6 +149,7 @@ def main(args):
         for ref in refs:
             if ref in source_ids:
                 DBSession.add(common.ValueSetReference(valueset=vs, source_pk=sources[slug(ref, lowercase=False)]))
+
 
 
 def prime_cache(args):

@@ -14,7 +14,7 @@ from sqlalchemy.ext.hybrid import hybrid_property
 
 from clld import interfaces
 from clld.db.meta import Base, CustomModelMixin
-from clld.db.models.common import Language, Parameter, ValueSet, Value
+from clld.db.models.common import Language, Parameter, ValueSet, Value, Sentence
 
 #-----------------------------------------------------------------------------
 # specialized common mapper classes
@@ -59,3 +59,12 @@ class Word(CustomModelMixin, Value):
     notes = Column(Unicode)
     morphemes = Column(Unicode)
     tokens = Column(Unicode)
+
+
+@implementer(interfaces.ISentence)
+class Example(CustomModelMixin, Sentence):
+    """
+    Relevant fields inherited from Value: id, name, valueset.
+    """
+    pk = Column(Integer, ForeignKey('sentence.pk'), primary_key=True)
+    conllu = Column(Unicode)
