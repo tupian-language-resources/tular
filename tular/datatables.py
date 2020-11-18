@@ -13,12 +13,12 @@ from tular import models
 
 class Languages(datatables.Languages):
     def base_query(self, query):
-        return query.join(Family).options(joinedload(models.Variety.family)).distinct()
+        return query.join(Family).options(joinedload(models.Doculect.family)).distinct()
 
     def col_defs(self):
         return [
             LinkCol(self, 'name'),
-            FamilyCol(self, 'Family', models.Variety),
+            FamilyCol(self, 'Family', models.Doculect),
             Col(self,
                 'latitude',
                 sDescription='<small>The geographic latitude</small>'),

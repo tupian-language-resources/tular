@@ -17,6 +17,7 @@ from clld import interfaces
 from clld.db.meta import Base, CustomModelMixin
 from clld.db.models.common import Language, Parameter, ValueSet, Value, Sentence
 from clld_cognacy_plugin.models import Cognate
+from clld_glottologfamily_plugin.models import HasFamilyMixin
 
 #-----------------------------------------------------------------------------
 # specialized common mapper classes
@@ -27,7 +28,7 @@ from clld_cognacy_plugin.models import Cognate
 
 
 @implementer(interfaces.ILanguage)
-class Doculect(CustomModelMixin, Language):
+class Doculect(CustomModelMixin, Language, HasFamilyMixin):
     """
     From Language this model inherits: id, name, latitude (float), longitude
     (float).

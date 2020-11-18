@@ -1,4 +1,3 @@
-import sys
 import itertools
 
 from clldutils.misc import slug
@@ -7,18 +6,26 @@ from clld.db.meta import DBSession
 from clld.db.models import common
 from clld.db.util import compute_language_sources
 from clld.lib import bibtex
-from nameparser import HumanName
 from pycldf import Dataset
 from clld_cognacy_plugin.models import Cognate, Cognateset
+from clld_glottologfamily_plugin.util import load_families
 
 import tular
 from tular.models import Doculect, Word, Concept, Example
 from .metadata import CONTRIBUTORS
 
-
-if sys.version_info < (3, 6, 0):
-    sys.stderr.write('Python 3.6 or above is required.')
-    exit(1)
+SUBGROUPS = {
+    'nonTupían': 'd222255',
+    'Arikem': 'cbbccee',
+    'Aweti': 'ccceeff',
+    'Juruna': 'cccddaa',
+    'Mawé': 'ceeeebb',
+    'Mondé': 'cffcccc',
+    'Munduruku': 'cdddddd',
+    'Ramarana-Purubora': 'c225555',
+    'Tuparí': 'c666633',
+    'Tupi-Guarani': 'c663333',
+}
 
 
 def add_meta_data(session, data):
@@ -68,9 +75,6 @@ def add_sources(sources_file_path, session):
 
 
 def main(args):
-    colors = [
-        '0000dd', '009900', '990099', 'dd0000', 'ffff00', 'ffffff', '00ff00', 'ff6600', '00ffff']
-    icons = [s + c for s in ['c', 'd'] for c in colors]
     data = Data()
     add_meta_data(DBSession, data)
     contrib = data.add(common.Contribution, 'tuled', id='tuled', name='tuled')
@@ -97,7 +101,7 @@ def main(args):
             glotto_code=row['Glottocode'],
             longitude=row['Longitude'],
             latitude=row['Latitude'],
-            jsondata=dict(icon=icons[len(subgroups) - 1])
+            jsondata=dict(icon=SUBGROUPS.get(row['SubGroup'])),
         )
 
     tudet = Dataset.from_metadata(args.cldf.directory.parent.parent / 'tudet' / 'cldf' / 'Generic-metadata.json')
@@ -170,6 +174,14 @@ def main(args):
             counterpart=data['Word'][row['Form_ID']],
             alignment=' '.join(row['Alignment'] or []),
         )
+
+    load_families(
+        Data(),
+        [(l.glotto_code, l) for l in data['Doculect'].values()],
+        glottolog_repos=args.glottolog,
+        isolates_icon='tcccccc',
+        strict=False,
+    )
 
 
 def prime_cache(args):
