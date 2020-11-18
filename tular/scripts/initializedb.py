@@ -9,8 +9,9 @@ from clld.db.util import compute_language_sources
 from clld.lib import bibtex
 from nameparser import HumanName
 from pycldf import Dataset
-import tular
+from clld_cognacy_plugin.models import Cognate, Cognateset
 
+import tular
 from tular.models import Doculect, Word, Concept, Example
 from .metadata import CONTRIBUTORS
 
@@ -134,7 +135,9 @@ def main(args):
         )
         refs = set()
         for row in rows:
-            DBSession.add(Word(
+            data.add(
+                Word,
+                row['ID'],
                 id=row['ID'],
                 valueset=vs,
                 name=row['Form'],
@@ -143,13 +146,30 @@ def main(args):
                 notes=row['Comment'],
                 morphemes=' '.join(row['Morphemes']),
                 partial_cognate=int(row['PartialCognates'][0]) if row['PartialCognates'] else None,
-            ))
+            )
             refs = refs.union(row['Source'])
 
         for ref in refs:
             if ref in source_ids:
                 DBSession.add(common.ValueSetReference(valueset=vs, source_pk=sources[slug(ref, lowercase=False)]))
 
+    for row in args.cldf['CognateTable']:
+        cc = data['Cognateset'].get(row['Cognateset_ID'])
+        if not cc:
+            cc = data.add(
+                Cognateset,
+                row['Cognateset_ID'],
+                id=row['Cognateset_ID'],
+                name=row['Cognateset_ID'],
+                contribution=contrib,
+            )
+        data.add(
+            Cognate,
+            row['ID'],
+            cognateset=cc,
+            counterpart=data['Word'][row['Form_ID']],
+            alignment=' '.join(row['Alignment'] or []),
+        )
 
 
 def prime_cache(args):

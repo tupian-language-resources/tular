@@ -20,11 +20,10 @@ setup(
     zip_safe=False,
     install_requires=[
         'clld',  # >=7.0
-
+        'conllu',
         'clld-glottologfamily-plugin>=4.0',
+        'clld-cognacy-plugin',
         'pyglottolog',
-
-
         'clldmpg',
 
 ],

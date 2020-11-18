@@ -44,6 +44,37 @@
 
 ${h.rendered_sentence(ctx)|n}
 
+<table class="table table-nonfluid table-condensed">
+    <thead>
+        <tr>
+            <th>form</th>
+            % for token in ctx.tokenlist:
+                <td>${token['form']}</td>
+            % endfor
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>lemma</th>
+            % for token in ctx.tokenlist:
+            <td>${token['lemma']}</td>
+            % endfor
+        </tr>
+        <tr>
+            <th>pos</th>
+            % for token in ctx.tokenlist:
+                <td>${token['xpos'] or ''}</td>
+            % endfor
+        </tr>
+        <tr>
+            <th>features</th>
+            % for token in ctx.tokenlist:
+                <td>${'|'.join('{}={}'.format(k, v) for k, v in (token['feats'] or {}).items())}</td>
+            % endfor
+        </tr>
+    </tbody>
+</table>
+
 <code class="conllu-parse" tabs="yes"><pre>
 ${ctx.conllu}
 </pre></code>

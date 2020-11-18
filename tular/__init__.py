@@ -35,7 +35,7 @@ def main(global_config, **settings):
     config.include('clld.web.app')
 
     config.include('clldmpg')
-
+    config.include('clld_cognacy_plugin')
 
     config.registry.registerUtility(LanguageByFamilyMapMarker(), IMapMarker)
 

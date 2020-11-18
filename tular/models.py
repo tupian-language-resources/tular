@@ -11,10 +11,12 @@ from sqlalchemy import (
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.ext.declarative import declared_attr
 from sqlalchemy.ext.hybrid import hybrid_property
+import conllu
 
 from clld import interfaces
 from clld.db.meta import Base, CustomModelMixin
 from clld.db.models.common import Language, Parameter, ValueSet, Value, Sentence
+from clld_cognacy_plugin.models import Cognate
 
 #-----------------------------------------------------------------------------
 # specialized common mapper classes
@@ -68,3 +70,7 @@ class Example(CustomModelMixin, Sentence):
     """
     pk = Column(Integer, ForeignKey('sentence.pk'), primary_key=True)
     conllu = Column(Unicode)
+
+    @property
+    def tokenlist(self):
+        return conllu.parse(self.conllu)[0]
