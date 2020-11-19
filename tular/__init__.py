@@ -60,7 +60,9 @@ def main(global_config, **settings):
     config.include('clldmpg')
     config.include('clld_cognacy_plugin')
     config.include('clld_glottologfamily_plugin')
+    config.add_route('completeness', '/completeness')
+    home_comp = config.registry.settings['home_comp']
+    home_comp.append('completeness')
 
     config.registry.registerUtility(LanguageByFamilyMapMarker(), IMapMarker)
-
     return config.make_wsgi_app()
