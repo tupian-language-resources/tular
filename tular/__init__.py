@@ -12,7 +12,9 @@ from tular import models
 
 _ = lambda s: s
 _('Contribution')
-_('Contributionsg')
+_('Contributions')
+_('Parameter')
+_('Parameters')
 
 
 def url(spec):
