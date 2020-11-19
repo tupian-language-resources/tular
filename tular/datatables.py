@@ -43,6 +43,14 @@ class Languages(datatables.Languages):
         ]
 
 
+class PartialCognatesCol(Col):
+    def format(self, item):
+        return HTML.ul(
+            *[HTML.li(HTML.a(n, href=self.dt.req.route_url('cognateset', id=n)))
+              for n in (item.partial_cognate or '').split()],
+            **{'class': 'inline'})
+
+
 class Words(datatables.Values):
 
     def col_defs(self):
@@ -66,7 +74,7 @@ class Words(datatables.Values):
             Col(self, 'form', model_col=models.Word.name, sTitle='Orthographic form'),
             Col(self, 'tokens', model_col=models.Word.tokens, sTitle='Tokens'),
             Col(self, 'simple_cognate', model_col=models.Word.simple_cognate, sTitle='Simple Cognate'),
-            Col(self, 'partial_cognate', model_col=models.Word.partial_cognate, sTitle='Partial Cognate'),
+            PartialCognatesCol(self, 'partial_cognate', model_col=models.Word.partial_cognate, sTitle='Partial Cognate'),
             Col(self, 'notes', model_col=models.Word.notes, sTitle='Notes'),
             Col(self, 'morphemes', model_col=models.Word.morphemes, sTitle='Morphemes')]
         )

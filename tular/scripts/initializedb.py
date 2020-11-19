@@ -149,7 +149,7 @@ def main(args):
                 simple_cognate=int(row['SimpleCognate']),
                 notes=row['Comment'],
                 morphemes=' '.join(row['Morphemes']),
-                partial_cognate=int(row['PartialCognates'][0]) if row['PartialCognates'] else None,
+                partial_cognate=' '.join([k for k in row['PartialCognates']]) if row['PartialCognates'] else None,
             )
             refs = refs.union(row['Source'])
 

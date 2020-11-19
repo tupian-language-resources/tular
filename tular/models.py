@@ -58,7 +58,7 @@ class Word(CustomModelMixin, Value):
     """
     pk = Column(Integer, ForeignKey('value.pk'), primary_key=True)
     simple_cognate = Column(Integer)
-    partial_cognate = Column(Integer)
+    partial_cognate = Column(Unicode)
     notes = Column(Unicode)
     morphemes = Column(Unicode)
     tokens = Column(Unicode)
