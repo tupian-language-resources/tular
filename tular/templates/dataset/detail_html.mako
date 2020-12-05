@@ -18,7 +18,7 @@
     collect linguistic (lexical, morphological, and syntactical) and ethnographic data related
     to the Tupían languages. The data is made available under
     <a href="https://creativecommons.org/licenses/by-sa/4.0/">Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) </a>.
-    TuLaR comprises four databases all of which are work-in-progress in different stages of completion.
+    TuLaR comprises six databases all of which are work-in-progress in different stages of completion.
 </p>
 
 <div class="clearfix"></div>
