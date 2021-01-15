@@ -12,7 +12,7 @@
 
 <h2 id="publications">TuLaR (Tupían Language Resources)</h2>
 
-<p class="lead">
+<p class="lead" align="justify">
 	Tupían Language Resources (TuLaR) is an ongoing project being compiled within the
     <a href="https://uni-tuebingen.de/de/163612">CrossLingference</a> project that intends to
     collect linguistic (lexical, morphological, and syntactical) and ethnographic data related
