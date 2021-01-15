@@ -2,7 +2,7 @@
 
 <%def name="sidebar()">
     <div class="well">
-        <img class="img-polaroid" src="${req.static_url('tular:static/tupi1.png')}"/>
+        <img class="img-polaroid" src="${req.static_url('tular:static/TuLaR_Image.jpeg')}"/>
         <ul class="nav nav-pills nav-stacked">
             <li><a href="#top">Overview</a></li>
             <li><a href="#publications">TuLaR publications</a></li>
@@ -57,3 +57,18 @@
         </p>
     </li>
 </ul>
+
+
+<h3>TuLaR Contributors</h3>
+
+<li>Agnaldo Makuráp</li>
+<li>Christian Fest (Universität Wien)</li>
+<li>Denny Moore (Museu Paraense Emílio Goeldi)</li>
+<li>Françoise Rose (Université de Lyon)</li>
+<li>  <a href="http://nupeli-gela.weebly.com"> Gustavo Godoy (Ppgas Universidade Federal do Rio de Janeiro)</a>  </li>
+<li>Harald Hammarström (Uppsala Universitet)</li>
+<li>Iram Káv Sona Gavião</li>
+<li>Nilson Gabas Júnior (University of California)</li>
+<li>Swintha Danielsen (Universität Leipzig)</li>
+<li>Wolf Dietrich (Universität Münster)</li>
+<li>Zachary O'Hagan (University of California)</li>
