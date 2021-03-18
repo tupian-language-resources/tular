@@ -1,18 +1,21 @@
+import pathlib
 import itertools
 
 from clldutils.misc import slug
+from clldutils.markup import iter_markdown_tables
+from clldutils import jsonlib
 from clld.cliutil import Data, bibtex2source
 from clld.db.meta import DBSession
 from clld.db.models import common
 from clld.db.util import compute_language_sources
 from clld.lib import bibtex
 from pycldf import Dataset
+from nameparser import HumanName
 from clld_cognacy_plugin.models import Cognate, Cognateset
 from clld_glottologfamily_plugin.util import load_families
 
 import tular
 from tular.models import Doculect, Word, Concept, Example
-from .metadata import CONTRIBUTORS
 
 SUBGROUPS = {
     'nonTupían': 'd222255',
@@ -28,34 +31,28 @@ SUBGROUPS = {
 }
 
 
-def add_meta_data(session, data):
+def add_meta_data(session):
     """
     Creates and adds to the given SQLAlchemy session the common.Dataset and
     related model instances that comprise the project's meta info.
     Helper for the main function that keeps the meta data in one place for
     easier reference and editing.
     """
-
     dataset = common.Dataset(
         id=tular.__name__,
         domain="tular.clld.org",
         name="TuLaR",
         description="Tupían Language Resources",
-        publisher_name="Seminar für Sprachwissenschaft at the University of Tübingen",
-        publisher_place="Tübingen",
+        publisher_name="Max-Planck Institute for Evolutionary Anthropology",
+        publisher_place="Leipzig",
         license='https://creativecommons.org/licenses/by-sa/4.0/',
         contact="team@tuled.org",
         jsondata={
             'license_icon': 'cc-by-sa.png',
             'license_name': 'Creative Commons Attribution-ShareAlike 4.0 International License'},
     )
-
-    for cid, name in CONTRIBUTORS.items():
-        data.add(common.Contributor, cid, id=cid, name=name)
-    for i, cid in enumerate(['gerardi', 'reichert', 'aragon']):
-        DBSession.add(common.Editor(dataset=dataset, contributor=data['Contributor'][cid], ord=i))
-
     session.add(dataset)
+    return dataset
 
 
 def add_sources(sources_file_path, session):
@@ -76,18 +73,42 @@ def add_sources(sources_file_path, session):
 
 def main(args):
     data = Data()
-    add_meta_data(DBSession, data)
-    contrib = data.add(common.Contribution, 'tuled', id='tuled', name='tuled')
-    for i, cid in enumerate(['gerardi', 'reichert', 'aragon', 'list', 'wientzek']):
-        DBSession.add(common.ContributionContributor(
-            contribution=contrib,
-            contributor=data['Contributor'][cid],
-            ord=i,
-        ))
+
+    dataset = add_meta_data(DBSession)
+
+    # tuled, tudet
+    rd = pathlib.Path(tular.__file__).parent.parent.parent.resolve()
+    root = input('Project dir [{}]: '.format(str(rd)))
+    root = pathlib.Path(root) if root else rd
+
+    for db in ['tuled', 'tudet']:
+        dbdir = root.joinpath(db)
+        assert dbdir.exists()
+        md = jsonlib.load(dbdir / 'metadata.json')
+        contribution = data.add(
+            common.Contribution, db, id=db, name=md['title'], description=md['description'])
+        header, contribs = next(iter_markdown_tables(
+            dbdir.joinpath('CONTRIBUTORS.md').read_text(encoding='utf8')))
+        for i, contrib in enumerate(contribs):
+            contrib = dict(zip(header, contrib))
+            cid = slug(HumanName(contrib['Name']).last)
+            contributor = data['Contributor'].get(cid)
+            if not contributor:
+                contributor = data.add(common.Contributor, cid, id=cid, name=contrib['Name'])
+            DBSession.add(common.ContributionContributor(
+                contribution=contribution,
+                contributor=contributor,
+                ord=i,
+            ))
+
+    for i, cid in enumerate(['gerardi', 'reichert', 'aragon', 'list', 'forkel']):
+        DBSession.add(common.Editor(
+            contributor=data['Contributor'][cid], dataset=dataset, ord=i))
 
     source_ids = list(add_sources(args.cldf.bibpath, DBSession))
     sources = {s.id: s.pk for s in DBSession.query(common.Source)}
     subgroups = []
+
     for row in args.cldf['LanguageTable']:
         if row['SubGroup'] not in subgroups:
             subgroups.append(row['SubGroup'])
@@ -104,7 +125,7 @@ def main(args):
             jsondata=dict(icon=SUBGROUPS.get(row['SubGroup'])),
         )
 
-    tudet = Dataset.from_metadata(args.cldf.directory.parent.parent / 'tudet' / 'cldf' / 'Generic-metadata.json')
+    tudet = Dataset.from_metadata(root / 'tudet' / 'cldf' / 'Generic-metadata.json')
     for row in tudet['ExampleTable']:
         DBSession.add(Example(
             id=row['ID'],
@@ -112,7 +133,7 @@ def main(args):
             description=row['Translated_Text'],
             language=data['Doculect'][row['Language_ID']],
             conllu=row['conllu']))
-    #return
+    return
 
     for row in args.cldf['ParameterTable']:
         data.add(

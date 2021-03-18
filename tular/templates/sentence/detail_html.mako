@@ -39,10 +39,13 @@
 <h2>${_('Sentence')} ${ctx.id}</h2>
 <dl>
     <dt>${_('Language')}:</dt>
-    <dd>${h.link(request, ctx.language)}</dd>
+    <dd>
+        <a href="${req.route_url('sentences', _query=dict(language=ctx.language.id))}">${ctx.language.name}</a>
+    </dd>
 </dl>
-
-${h.rendered_sentence(ctx)|n}
+<div class="well">
+    ${h.rendered_sentence(ctx)|n}
+</div>
 
 <table class="table table-nonfluid table-condensed">
     <thead>

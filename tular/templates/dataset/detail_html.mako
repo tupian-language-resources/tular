@@ -8,6 +8,11 @@
             <li><a href="#publications">TuLaR publications</a></li>
         </ul>
     </div>
+    <div class="well">
+        <a href="https://uni-tuebingen.de/">
+            <img src="${req.static_url('tular:static/uni_tuebingen_logo.png')}">
+        </a>
+    </div>
 </%def>
 
 <h2 id="publications">TuLaR (Tupían Language Resources)</h2>
@@ -72,3 +77,5 @@
 <li>Swintha Danielsen (Universität Leipzig)</li>
 <li>Wolf Dietrich (Universität Münster)</li>
 <li>Zachary O'Hagan (University of California)</li>
+
+<br>

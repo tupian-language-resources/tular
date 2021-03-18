@@ -5,6 +5,7 @@
 
 <%block name="title">${_('Language')} ${ctx.name}</%block>
 
+
 <div class="row-fluid">
     <div class="span12">
         <h2>${_('Language')} ${ctx.name}</h2>
@@ -36,4 +37,3 @@
 <div class="row-fluid">
     ${request.get_datatable('values', h.models.Value, language=ctx).render()}
 </div>
-
