@@ -39,7 +39,7 @@
 
 <li class="bullet-list"><p>Aragon, Carolina &amp; Ferraz Gerardi, Fabrício (2020) <a href="https://github.com/UniversalDependencies/UD_Akuntsu-TuDeT/tree/dev">  UniversalDependencies/UD_Akuntsu-TuDeT: Akuntsú Treebank </a>  </p></li>
 
-<li class="bullet-list"><p>Aragon, Carolina &amp; Ferraz Gerardi, Fabrício (2021) <a href="https://github.com/UniversalDependencies/UD_Makurap-TuDeT/tree/dev">  UniversalDependencies/UD_Akuntsu-TuDeT: Makurap Treebank </a>  </p></li>
+<li class="bullet-list"><p>Aragon, Carolina &amp; Ferraz Gerardi, Fabrício (2021) <a href="https://github.com/UniversalDependencies/UD_Makurap-TuDeT/tree/dev">  UniversalDependencies/UD_Makurap-TuDeT: Makurap Treebank </a>  </p></li>
 
 <li class="bullet-list"><p>Ferraz Gerardi, Fabrício &amp; Aragon, Carolina &amp; Godoy, Gustavo <a href="https://github.com/UniversalDependencies/UD_Kaapor-TuDeT/tree/dev">UniversalDependencies/UD_Kaapor-TuDeT: Ka'apor Treebank </a>. </p></li>
 
