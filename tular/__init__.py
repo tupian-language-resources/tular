@@ -42,9 +42,7 @@ class LanguageByFamilyMapMarker(util.LanguageByFamilyMapMarker):
             return url(req.registry.settings.get('clld.isolates_icon', ISOLATES_ICON))
 
         if ILanguage.providedBy(ctx):
-            icon_ = super(LanguageByFamilyMapMarker, self).get_icon(ctx, req)
-            if ctx.jsondata['icon']:
-                icon_ = ctx.jsondata['icon']
+            icon_ = ctx.jsondata['icon']
             return url(icon_)
 
         return super(LanguageByFamilyMapMarker, self).__call__(ctx, req)

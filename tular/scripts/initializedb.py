@@ -12,7 +12,7 @@ from clld.lib import bibtex
 from pycldf import Dataset
 from nameparser import HumanName
 from clld_cognacy_plugin.models import Cognate, Cognateset
-from clld_glottologfamily_plugin.util import load_families
+from clld_glottologfamily_plugin.models import Family
 
 import tular
 from tular.models import Doculect, Word, Concept, Example
@@ -28,6 +28,7 @@ SUBGROUPS = {
     'Ramarana-Purubora': 'c225555',
     'Tuparí': 'c666633',
     'Tupi-Guarani': 'c663333',
+    'Omagua-Kokama': 'c336633',
 }
 
 
@@ -112,21 +113,30 @@ def main(args):
     for row in args.cldf['LanguageTable']:
         if row['SubGroup'] not in subgroups:
             subgroups.append(row['SubGroup'])
+        family = data['Family'].get(row['Family'])
+        if (not family) and row['Family']:
+            family = data.add(Family, row['Family'], id=slug(row['Family']), name=row['Family'])
         data.add(
             Doculect,
             row['ID'],
             id=row['ID'],
             name=row['Name'].replace('_', ' '),
+            family=family,
             subfamily=row['SubGroup'],
             iso_code=row['ISO639P3code'],
             glotto_code=row['Glottocode'],
             longitude=row['Longitude'],
             latitude=row['Latitude'],
-            jsondata=dict(icon=SUBGROUPS.get(row['SubGroup'])),
+            jsondata=dict(icon=SUBGROUPS[row['SubGroup']]),
         )
 
     tudet = Dataset.from_metadata(root / 'tudet' / 'cldf' / 'Generic-metadata.json')
+    seen = set()
     for row in tudet['ExampleTable']:
+        if row['ID'] in seen:
+            print('skipping duplicate sentence ID {}'.format(row['ID']))
+            continue
+        seen.add(row['ID'])
         DBSession.add(Example(
             id=row['ID'],
             name=row['Primary_Text'],
@@ -196,13 +206,13 @@ def main(args):
             alignment=' '.join(row['Alignment'] or []),
         )
 
-    load_families(
-        Data(),
-        [(l.glotto_code, l) for l in data['Doculect'].values()],
-        glottolog_repos=args.glottolog,
-        isolates_icon='tcccccc',
-        strict=False,
-    )
+    #load_families(
+    #    Data(),
+    #    [(l.glotto_code, l) for l in data['Doculect'].values()],
+    #    glottolog_repos=args.glottolog,
+    #    isolates_icon='tcccccc',
+    #    strict=False,
+    #)
 
 
 def prime_cache(args):
