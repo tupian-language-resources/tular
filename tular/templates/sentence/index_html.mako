@@ -23,6 +23,7 @@
         <script src="${request.static_url('tular:static/conllu.js')}"></script>
         <style>
             li.sentence {border-bottom: 2px solid black; margin-bottom: 1em;}
+            div.show-hide-div {visibility: hidden;}
         </style>
     % endif
 </%block>
@@ -34,11 +35,11 @@
         ${ctx.render()}
     </div>
 % else:
-        <h2>Dependency trees for ${lang.name}</h2>
-        <ul class="unstyled">
-            % for sent in sentences:
+        <h2>Dependency treebank for ${lang.name}</h2>
+        <ol>
+            % for sent in sorted(sentences, key=lambda s: int(s.id.split('-')[1])):
                 <li class="sentence">
-                    <div class="well">
+                    <div class="well well-small">
                         ${h.rendered_sentence(sent)|n}
                     </div>
                     <table class="table table-nonfluid table-condensed">
@@ -72,12 +73,12 @@
                         </tbody>
                     </table>
                     <code class="conllu-parse" tabs="yes"><pre>
-                        ${sent.conllu}
+                        ${u.fix_conllu(sent.conllu)}
                     </pre>
                     </code>
                 </li>
             % endfor
-        </ul>
+        </ol>
 
     <script>
         var documentCollections = {};
@@ -88,9 +89,6 @@
 
         $(document).ready(function () {
             Annodoc.activate(Config.bratCollData, documentCollections);
-            $('.show-hide-div').forEach(function (e) {
-                e.hide();
-            });
         });
     </script>
 

@@ -14,7 +14,7 @@ from sqlalchemy.ext.hybrid import hybrid_property
 import conllu
 
 from clld import interfaces
-from clld.db.meta import Base, CustomModelMixin
+from clld.db.meta import Base, CustomModelMixin, DBSession
 from clld.db.models.common import Language, Parameter, ValueSet, Value, Sentence
 from clld_cognacy_plugin.models import Cognate
 from clld_glottologfamily_plugin.models import HasFamilyMixin
@@ -37,6 +37,14 @@ class Doculect(CustomModelMixin, Language, HasFamilyMixin):
     subfamily = Column(Unicode)
     iso_code = Column(Unicode)
     glotto_code = Column(Unicode)
+
+    @property
+    def has_treebank(self):
+        return bool(DBSession.query(Sentence).filter(Sentence.language_pk == self.pk).first())
+
+    def treebank_url(self, req):
+        if self.has_treebank:
+            return req.route_url('sentences', _query=dict(language=self.id))
 
 
 @implementer(interfaces.IParameter)

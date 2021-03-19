@@ -133,8 +133,8 @@ def main(args):
             description=row['Translated_Text'],
             language=data['Doculect'][row['Language_ID']],
             conllu=row['conllu']))
-    return
 
+    contrib = data['Contribution']['tuled']
     for row in args.cldf['ParameterTable']:
         data.add(
             Concept,

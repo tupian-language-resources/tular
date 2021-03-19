@@ -1,5 +1,6 @@
 from clld.web import datatables
 from clld.web.datatables.base import LinkCol, Col, LinkToMapCol
+from clld.web.datatables.contribution import Contributions, ContributorsCol
 from clld.web.util.helpers import map_marker_img, link
 from clld.web.util.htmllib import HTML
 from clld.db.util import get_distinct_values
@@ -85,6 +86,16 @@ class Words(datatables.Values):
         return res
 
 
+class Databases(Contributions):
+    def col_defs(self):
+        return [
+            LinkCol(self, 'name'),
+            Col(self, 'description'),
+            ContributorsCol(self, 'contributor'),
+        ]
+
+
 def includeme(config):
     config.register_datatable('languages', Languages)
     config.register_datatable('values', Words)
+    config.register_datatable('contributions', Databases)

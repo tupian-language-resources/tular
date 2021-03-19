@@ -17,7 +17,7 @@ ${util.data()}
     <ul>
         % for lang, c in languages:
             <li>
-                <a href="${req.route_url('sentences', _query=dict(language=lang.id))}">${lang.name}</a>
+                <a href="${lang.treebank_url(req)}">${lang.name}</a>
                 (${c} sentences)
             </li>
         % endfor
