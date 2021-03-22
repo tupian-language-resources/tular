@@ -20,7 +20,7 @@
 <p class="lead" align="justify">    
     
     TuLaR (<b>Tu</b>pían <b>La</b>nguage <b>R</b>esources) is an ongoing project being compiled within the <a href="https://uni-tuebingen.de/de/163612">CrossLingference</a> that 
-    intends to collect linguistic (lexical, morphological, and syntactical) and ethnographic data related to the Tupían languages. 
+    collects linguistic (lexical, morphological, and syntactical) and ethnographic data related to the Tupían languages. 
     The data is made available under Attribution-ShareAlike 4.0 International (CC BY-SA 4.0). TuLaR comprises five databases all of which 
     are work-in-progress in different stages of completion.
     
@@ -31,6 +31,7 @@
 <h3>TuLaR publications</h3>
 
 <ul>
+
 <li class="bullet-list">Aragon, C. &amp; Ferraz Gerardi, F. The typology of grammatical relations in Tuparian languages, with special focus on Akuntsú. In Language Change and Linguistic Diversity: studies in honour of Lyle Campbell. Thiago Chacon, Nala Lee and Wilson Silva (editors). Chapter 11 (forthcoming). </li>
 
 <li class="bullet-list">Ferraz Gerardi, Fabrício &amp; Reichert, Stanislav &amp; Aragon, Carolina. (2021) TuLeD (Tupían Lexical Database): Introducing a database of a South American language family. To appear in <a href="https://link.springer.com/article/10.1007/s10579-020-09521-5#citeas">Language Resources and Evaluation.</a> DOI 10.1007/s10579-020-09521-5 </li>
