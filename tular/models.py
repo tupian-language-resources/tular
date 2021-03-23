@@ -12,10 +12,12 @@ from sqlalchemy.orm import relationship, backref
 from sqlalchemy.ext.declarative import declared_attr
 from sqlalchemy.ext.hybrid import hybrid_property
 import conllu
+from pyclts.ipachart import Segment
 
 from clld import interfaces
 from clld.db.meta import Base, CustomModelMixin, DBSession
-from clld.db.models.common import Language, Parameter, ValueSet, Value, Sentence
+from clld.db.models.common import Language, Parameter, ValueSet, Value, Sentence, Contribution
+from clld.web.util.helpers import external_link
 from clld_cognacy_plugin.models import Cognate
 from clld_glottologfamily_plugin.models import HasFamilyMixin
 
@@ -45,6 +47,14 @@ class Doculect(CustomModelMixin, Language, HasFamilyMixin):
     def treebank_url(self, req):
         if self.has_treebank:
             return req.route_url('sentences', _query=dict(language=self.id))
+
+    @property
+    def inventory(self):
+        return [Segment(
+            sound_bipa=k,
+            sound_name=v,
+            href='https://clts.clld.org/parameters/{}'.format(v.replace(' ', '_')),
+        ) for k, v in self.jsondata['inventory']]
 
 
 @implementer(interfaces.IParameter)
@@ -83,3 +93,15 @@ class Example(CustomModelMixin, Sentence):
     @property
     def tokenlist(self):
         return conllu.parse(self.conllu)[0]
+
+
+@implementer(interfaces.IContribution)
+class Database(CustomModelMixin, Contribution):
+    pk = Column(Integer, ForeignKey('contribution.pk'), primary_key=True)
+    doi = Column(Unicode)
+
+    def doi_link(self):
+        if self.doi:
+            return external_link(
+                'https://doi.org/{0.doi}'.format(self), label='DOI: {0.doi}'.format(self))
+        return ''

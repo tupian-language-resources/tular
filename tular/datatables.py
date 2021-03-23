@@ -92,6 +92,12 @@ class Databases(Contributions):
             LinkCol(self, 'name'),
             Col(self, 'description'),
             ContributorsCol(self, 'contributor'),
+            Col(self,
+                'doi',
+                bSearchable=False,
+                bSortable=False,
+                sTitle='DOI',
+                format=lambda i: i.doi_link()),
         ]
 
 

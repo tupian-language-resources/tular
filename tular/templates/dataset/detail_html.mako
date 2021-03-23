@@ -19,11 +19,10 @@
 
 <p class="lead" align="justify">    
     
-    TuLaR (<b>Tu</b>pían <b>La</b>nguage <b>R</b>esources) is being compiled within the 
-    <a href="https://uni-tuebingen.de/de/163612">CrossLingference</a> that collects linguistic (lexical, morphological, and syntactical) 
-    and ethnographic data related to the Tupían languages. The data is made available under Attribution-ShareAlike 4.0 International 
-    (CC BY-SA 4.0). TuLaR comprises five databases all of which are work-in-progress in different stages of completion.
-    
+    TuLaR (<b>Tu</b>pían <b>La</b>nguage <b>R</b>esources) is an ongoing project being compiled within the
+    <a href="https://uni-tuebingen.de/de/163612">CrossLingference</a> project that collects linguistic (lexical, morphological, and syntactical)
+    and ethnographic data related to the Tupían languages. The data is made available under CC licenses.
+    TuLaR comprises five databases all of which are work-in-progress in different stages of completion.
 </p>
 
 <div class="clearfix"></div>

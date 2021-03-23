@@ -1,5 +1,6 @@
 import pathlib
 import itertools
+import collections
 
 from clldutils.misc import slug
 from clldutils.markup import iter_markdown_tables
@@ -13,9 +14,10 @@ from pycldf import Dataset
 from nameparser import HumanName
 from clld_cognacy_plugin.models import Cognate, Cognateset
 from clld_glottologfamily_plugin.models import Family
+from pyclts import CLTS
 
 import tular
-from tular.models import Doculect, Word, Concept, Example
+from tular.models import Doculect, Word, Concept, Example, Database
 
 SUBGROUPS = {
     'nonTupían': 'd222255',
@@ -30,16 +32,24 @@ SUBGROUPS = {
     'Tupi-Guarani': 'c663333',
     'Omagua-Kokama': 'c336633',
 }
+DATASETS = collections.OrderedDict([
+    ('tuled', 'https://doi.org/10.5281/zenodo.4629306'),
+    ('tudet', None),
+])
 
 
-def add_meta_data(session):
-    """
-    Creates and adds to the given SQLAlchemy session the common.Dataset and
-    related model instances that comprise the project's meta info.
-    Helper for the main function that keeps the meta data in one place for
-    easier reference and editing.
-    """
-    dataset = common.Dataset(
+def add_sources(sources_file_path, session):
+    bibtex_db = bibtex.Database.from_file(sources_file_path, encoding='utf-8')
+    for record in bibtex_db:
+        session.add(bibtex2source(record))
+        yield record.id
+    session.flush()
+
+
+def main(args):
+    data = Data()
+    dataset = data.add(
+        common.Dataset, 'tular',
         id=tular.__name__,
         domain="tular.clld.org",
         name="TuLaR",
@@ -52,42 +62,24 @@ def add_meta_data(session):
             'license_icon': 'cc-by-sa.png',
             'license_name': 'Creative Commons Attribution-ShareAlike 4.0 International License'},
     )
-    session.add(dataset)
-    return dataset
 
-
-def add_sources(sources_file_path, session):
-    """
-    Creates and adds to the given SQLAlchemy session the common.Source model
-    instances that comprise the project's references. Expects the path to a
-    bibtex file as its first argument.
-    Returns a dict containing the added model instances with the bibtex IDs
-    being the keys.
-    Helper for the main function.
-    """
-    bibtex_db = bibtex.Database.from_file(sources_file_path, encoding='utf-8')
-    for record in bibtex_db:
-        session.add(bibtex2source(record))
-        yield record.id
-    session.flush()
-
-
-def main(args):
-    data = Data()
-
-    dataset = add_meta_data(DBSession)
-
-    # tuled, tudet
     rd = pathlib.Path(tular.__file__).parent.parent.parent.resolve()
     root = input('Project dir [{}]: '.format(str(rd)))
     root = pathlib.Path(root) if root else rd
+    clts_dir = rd / '..' / 'cldf-clts' / 'clts-data'
+    clts = CLTS(input('Path to cldf-clts/clts [{}]: '.format(str(clts_dir))) or clts_dir)
 
-    for db in ['tuled', 'tudet']:
+    for db, doi in DATASETS.items():
         dbdir = root.joinpath(db)
         assert dbdir.exists()
         md = jsonlib.load(dbdir / 'metadata.json')
         contribution = data.add(
-            common.Contribution, db, id=db, name=md['title'], description=md['description'])
+            Database, db,
+            id=db,
+            name=md['title'],
+            description=md['description'],
+            doi=doi,
+        )
         header, contribs = next(iter_markdown_tables(
             dbdir.joinpath('CONTRIBUTORS.md').read_text(encoding='utf8')))
         for i, contrib in enumerate(contribs):
@@ -144,7 +136,7 @@ def main(args):
             language=data['Doculect'][row['Language_ID']],
             conllu=row['conllu']))
 
-    contrib = data['Contribution']['tuled']
+    contrib = data['Database']['tuled']
     for row in args.cldf['ParameterTable']:
         data.add(
             Concept,
@@ -156,8 +148,10 @@ def main(args):
             concepticon_class=row['Concepticon_ID'],
             eol=row['EOL_ID'],
         )
+    inventories = collections.defaultdict(set)
     for (lid, pid), rows in itertools.groupby(
-        sorted(args.cldf['FormTable'], key=lambda r: (r['Language_ID'], r['Parameter_ID'])),
+        sorted(args.cldf.iter_rows('FormTable', 'languageReference', 'parameterReference'),
+               key=lambda r: (r['Language_ID'], r['Parameter_ID'])),
         lambda r: (r['Language_ID'], r['Parameter_ID']),
     ):
         vsid = '{}-{}'.format(lid, pid)
@@ -170,6 +164,8 @@ def main(args):
         )
         refs = set()
         for row in rows:
+            inventories[row['languageReference']] = inventories[row['languageReference']].union(
+                row['Segments'])
             data.add(
                 Word,
                 row['ID'],
@@ -187,6 +183,11 @@ def main(args):
         for ref in refs:
             if ref in source_ids:
                 DBSession.add(common.ValueSetReference(valueset=vs, source_pk=sources[slug(ref, lowercase=False)]))
+
+    for lid, inv in inventories.items():
+        inv = [clts.bipa[c] for c in inv]
+        data['Doculect'][lid].update_jsondata(
+            inventory=[(str(c), c.name) for c in inv if hasattr(c, 'name')])
 
     for row in args.cldf['CognateTable']:
         cc = data['Cognateset'].get(row['Cognateset_ID'])
