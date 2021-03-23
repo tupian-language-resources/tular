@@ -33,9 +33,9 @@
 
 <li class="bullet-list">Aragon, C. &amp; Ferraz Gerardi, F. The typology of grammatical relations in Tuparian languages, with special focus on Akuntsú. In Language Change and Linguistic Diversity: studies in honour of Lyle Campbell. Thiago Chacon, Nala Lee and Wilson Silva (editors). Chapter 11 (forthcoming). </li>
 
-<li class="bullet-list">Ferraz Gerardi, Fabrício &amp; Reichert, Stanislav &amp; Aragon, Carolina. (2021) TuLeD (Tupían Lexical Database): Introducing a database of a South American language family. To appear in <a href="https://link.springer.com/article/10.1007/s10579-020-09521-5#citeas">Language Resources and Evaluation.</a> DOI 10.1007/s10579-020-09521-5 </li>
+<li class="bullet-list">Ferraz Gerardi, Fabrício &amp; Reichert, Stanislav &amp; Aragon, Carolina. (2021) <a href="https://link.springer.com/article/10.1007/s10579-020-09521-5#Abs1">TuLeD (Tupían Lexical Database): Introducing a database of a South American language family. To appear in <a href="https://link.springer.com/article/10.1007/s10579-020-09521-5#citeas">Language Resources and Evaluation. DOI 10.1007/s10579-020-09521-5</a> </li>
 
-<li class="bullet-list"><p>Ferraz Gerardi, Fabrício &amp; Reichert, Stanislav. (2021) The Tupí-Guaraní language family: a phylogenetic classification. <a href="https://benjamins.com/catalog/dia.18032.fer">Diachronica. </a></p></li>
+<li class="bullet-list"><p>Ferraz Gerardi, Fabrício &amp; Reichert, Stanislav. (2021) <a href="https://benjamins.com/catalog/dia.18032.fer"> The Tupí-Guaraní language family: a phylogenetic classification. Diachronica. </a></p></li>
 
 <li class="bullet-list"><p>Fabrício Ferraz Gerardi, Stanislav Reichert, Carolina Aragon, Johann-Mattis List, & Tim Wientzek. (2020). CLDF dataset derived from Gerardi and Reichert's "TuLeD: Tupían lexical database" from 2020 (Version v0.10) [Data set]. <a href="https://doi.org/10.5281/zenodo.4161623"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.4161623.svg" alt="DOI"></a></p></li>
 
