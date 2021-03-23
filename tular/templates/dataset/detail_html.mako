@@ -19,7 +19,7 @@
 
 <p class="lead" align="justify">    
     
-    TuLaR (<b>Tu</b>pían <b>La</b>nguage <b>R</b>esources) is an ongoing project being compiled within the 
+    TuLaR (<b>Tu</b>pían <b>La</b>nguage <b>R</b>esources) is being compiled within the 
     <a href="https://uni-tuebingen.de/de/163612">CrossLingference</a> that collects linguistic (lexical, morphological, and syntactical) 
     and ethnographic data related to the Tupían languages. The data is made available under Attribution-ShareAlike 4.0 International 
     (CC BY-SA 4.0). TuLaR comprises five databases all of which are work-in-progress in different stages of completion.
@@ -46,7 +46,7 @@
 
 <li class="bullet-list"><p>Ferraz Gerardi, Fabrício &amp; Aragon, Carolina &amp; Godoy, Gustavo <a href="https://github.com/UniversalDependencies/UD_Kaapor-TuDeT/tree/dev">UniversalDependencies/UD_Kaapor-TuDeT: Ka'apor Treebank </a>. </p></li>
 
-<li class="bullet-list"><p>Ferraz Gerardi, Fabrício &amp; Lorena, Martin-Rodriguez <a href="https://github.com/UniversalDependencies/UD_Guajajara-TuDeT/tree/dev">UniversalDependencies/UD_Guajajara-TuDeT: Guajajara Treebank </a>. </p></li>
+<li class="bullet-list"><p>Lorena, Martin-Rodriguez &amp; Ferraz Gerardi, Fabrício <a href="https://github.com/UniversalDependencies/UD_Guajajara-TuDeT/tree/dev">UniversalDependencies/UD_Guajajara-TuDeT: Guajajara Treebank </a>. </p></li>
 
 <li class="bullet-list"><p>Ferraz Gerardi, Fabrício(2020) <a href="https://github.com/UniversalDependencies/UD_Munduruku-TuDeT/tree/dev">  UniversalDependencies/UD_Munduruku-TuDeT: Mundurukú Treebank </a>.</p></li>
 
@@ -66,11 +66,9 @@
 <h3>TuLaR Contributors</h3>
 
 <li>Agnaldo Makuráp</li>
-<li>Christian Fest (Universität Wien)</li>
 <li>Denny Moore (Museu Paraense Emílio Goeldi)</li>
 <li>Françoise Rose (Université de Lyon)</li>
 <li>  <a href="http://nupeli-gela.weebly.com"> Gustavo Godoy (Ppgas Universidade Federal do Rio de Janeiro)</a>  </li>
-<li>Harald Hammarström (Uppsala Universitet)</li>
 <li>Iram Káv Sona Gavião</li>
 <li>Nilson Gabas Júnior (University of California)</li>
 <li>Swintha Danielsen (Universität Leipzig)</li>
