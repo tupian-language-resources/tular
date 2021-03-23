@@ -41,19 +41,19 @@
 
 <li class="bullet-list"><p>Aragon, Carolina &amp; Ferraz Gerardi, Fabrício (2020) <a href="https://github.com/UniversalDependencies/UD_Akuntsu-TuDeT/tree/dev">  UniversalDependencies/UD_Akuntsu-TuDeT: Akuntsú Treebank </a>  </p></li>
 
-<li class="bullet-list"><p>Aragon, Carolina &amp; Ferraz Gerardi, Fabrício (2021) <a href="https://github.com/UniversalDependencies/UD_Makurap-TuDeT/tree/dev">  UniversalDependencies/UD_Makurap-TuDeT: Makurap Treebank </a>  </p></li>
+<li class="bullet-list"><p>Aragon, Carolina &amp; Ferraz Gerardi, Fabrício (2021) <a href="https://github.com/UniversalDependencies/UD_Makurap-TuDeT/tree/dev">  UniversalDependencies/UD_Akuntsu-TuDeT: Makurap Treebank </a>  </p></li>
 
-<li class="bullet-list"><p>Ferraz Gerardi, Fabrício &amp; Aragon, Carolina &amp; Godoy, Gustavo <a href="https://github.com/UniversalDependencies/UD_Kaapor-TuDeT/tree/dev">UniversalDependencies/UD_Kaapor-TuDeT: Ka'apor Treebank </a>. </p></li>
+<li class="bullet-list"><p>Ferraz Gerardi, Fabrício &amp; Aragon, Carolina &amp; Godoy, Gustavo (2021) <a href="https://github.com/UniversalDependencies/UD_Kaapor-TuDeT/tree/dev"> UniversalDependencies/UD_Kaapor-TuDeT: Ka'apor Treebank </a>. </p></li>
 
-<li class="bullet-list"><p>Lorena, Martin-Rodriguez &amp; Ferraz Gerardi, Fabrício <a href="https://github.com/UniversalDependencies/UD_Guajajara-TuDeT/tree/dev">UniversalDependencies/UD_Guajajara-TuDeT: Guajajara Treebank </a>. </p></li>
+<li class="bullet-list"><p> Lorena, Martin-Rodriguez &am; Ferraz Gerardi, Fabrício (2021) <a href="https://github.com/UniversalDependencies/UD_Guajajara-TuDeT/tree/dev">UniversalDependencies/UD_Guajajara-TuDeT: Guajajara Treebank </a>. </p></li>
 
-<li class="bullet-list"><p>Ferraz Gerardi, Fabrício(2020) <a href="https://github.com/UniversalDependencies/UD_Munduruku-TuDeT/tree/dev">  UniversalDependencies/UD_Munduruku-TuDeT: Mundurukú Treebank </a>.</p></li>
+<li class="bullet-list"><p>Ferraz Gerardi, Fabrício(2020) <a href="https://github.com/UniversalDependencies/UD_Munduruku-TuDeT/tree/dev"> UniversalDependencies/UD_Munduruku-TuDeT: Mundurukú Treebank </a>.</p></li>
+
+<li class="bullet-list"><p>Ferraz Gerardi, Fabrício &amp; Merzhevich, Tatiana (2020) <a href="https://github.com/UniversalDependencies/UD_Tupinamba-TuDeT/tree/dev"> UniversalDependencies/UD_Tupinamba-TuDeT: Tupinambá Treebank </a>.</p></li>
 
 <li class="bullet-list"><p>Ferraz Gerardi, Fabrício. (2020) The Structure of Mundurukú (ongoing work). Tübingen.</p></li>
 
 <li class="bullet-list"><p>Ferraz Gerardi, Fabrício &amp; Reichert, Stanislav &amp; Blum, Frederic (2020) TuMoD: Tupían Morphological Database (to be published). Universität Tübingen.</p></li>
-
-<li class="bullet-list"><p>Ferraz Gerardi, Fabrício &amp; Merzhevich, Tatiana (2020) <a href="https://github.com/UniversalDependencies/UD_Tupinamba-TuDeT/tree/dev"> UniversalDependencies/UD_Tupinamba-TuDeT: Tupinambá Treebank </a>.</p></li>
 
 <li class="bullet-list"><p>Godoy, Gustavo &amp; Ferraz Gerardi, Fabrício &amp; Carolina Aragon (2021). Tupían Ethnographic Database (to be published). Universität Tübingen </li></p>
 
