@@ -2,7 +2,6 @@ from sqlalchemy import func
 from clld.db.models import common
 from clld.db.meta import DBSession
 from clld.web.util import glottolog
-from pyclts.ipachart import VowelTrapezoid, PulmonicConsonants
 
 
 def glottolog_link(req, lang):
@@ -12,15 +11,7 @@ def glottolog_link(req, lang):
 
 
 def language_detail_html(context=None, request=None, **kw):
-    res = {}
-    d = VowelTrapezoid()
-    covered = d.fill_slots(context.inventory)
-    res['vowels_html'], res['vowels_css'] = d.render()
-    d = PulmonicConsonants()
-    covered = covered.union(d.fill_slots(context.inventory))
-    res['consonants_html'], res['consonants_css'] = d.render()
-    res['uncovered'] = [p for i, p in enumerate(context.inventory) if i not in covered]
-    return res
+    return context.render_inventory()
 
 
 def fix_conllu(s):

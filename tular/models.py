@@ -1,36 +1,25 @@
 from zope.interface import implementer
 from sqlalchemy import (
     Column,
-    String,
     Unicode,
     Integer,
-    Boolean,
     ForeignKey,
-    UniqueConstraint,
 )
-from sqlalchemy.orm import relationship, backref
-from sqlalchemy.ext.declarative import declared_attr
-from sqlalchemy.ext.hybrid import hybrid_property
 import conllu
-from pyclts.ipachart import Segment
 
 from clld import interfaces
 from clld.db.meta import Base, CustomModelMixin, DBSession
 from clld.db.models.common import Language, Parameter, ValueSet, Value, Sentence, Contribution
 from clld.web.util.helpers import external_link
 from clld_cognacy_plugin.models import Cognate
+from clld_ipachart_plugin.models import InventoryMixin
 from clld_glottologfamily_plugin.models import HasFamilyMixin
 
 #-----------------------------------------------------------------------------
 # specialized common mapper classes
 #-----------------------------------------------------------------------------
-#@implementer(interfaces.ILanguage)
-#class tuledLanguage(CustomModelMixin, Language):
-#    pk = Column(Integer, ForeignKey('language.pk'), primary_key=True)
-
-
 @implementer(interfaces.ILanguage)
-class Doculect(CustomModelMixin, Language, HasFamilyMixin):
+class Doculect(CustomModelMixin, Language, HasFamilyMixin, InventoryMixin):
     """
     From Language this model inherits: id, name, latitude (float), longitude
     (float).
@@ -47,14 +36,6 @@ class Doculect(CustomModelMixin, Language, HasFamilyMixin):
     def treebank_url(self, req):
         if self.has_treebank:
             return req.route_url('sentences', _query=dict(language=self.id))
-
-    @property
-    def inventory(self):
-        return [Segment(
-            sound_bipa=k,
-            sound_name=v,
-            href='https://clts.clld.org/parameters/{}'.format(v.replace(' ', '_')),
-        ) for k, v in self.jsondata['inventory']]
 
 
 @implementer(interfaces.IParameter)

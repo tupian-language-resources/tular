@@ -23,6 +23,7 @@ setup(
         'conllu',
         'clld-glottologfamily-plugin>=4.0',
         'clld-cognacy-plugin',
+        'clld-ipachart-plugin',
         'pyglottolog',
         'clldmpg',
         'pyclts>=3.0',

@@ -14,6 +14,7 @@ from pycldf import Dataset
 from nameparser import HumanName
 from clld_cognacy_plugin.models import Cognate, Cognateset
 from clld_glottologfamily_plugin.models import Family
+from clld_ipachart_plugin.util import load_inventories
 from pyclts import CLTS
 
 import tular
@@ -148,7 +149,6 @@ def main(args):
             concepticon_class=row['Concepticon_ID'],
             eol=row['EOL_ID'],
         )
-    inventories = collections.defaultdict(set)
     for (lid, pid), rows in itertools.groupby(
         sorted(args.cldf.iter_rows('FormTable', 'languageReference', 'parameterReference'),
                key=lambda r: (r['Language_ID'], r['Parameter_ID'])),
@@ -164,8 +164,6 @@ def main(args):
         )
         refs = set()
         for row in rows:
-            inventories[row['languageReference']] = inventories[row['languageReference']].union(
-                row['Segments'])
             data.add(
                 Word,
                 row['ID'],
@@ -184,10 +182,7 @@ def main(args):
             if ref in source_ids:
                 DBSession.add(common.ValueSetReference(valueset=vs, source_pk=sources[slug(ref, lowercase=False)]))
 
-    for lid, inv in inventories.items():
-        inv = [clts.bipa[c] for c in inv]
-        data['Doculect'][lid].update_jsondata(
-            inventory=[(str(c), c.name) for c in inv if hasattr(c, 'name')])
+    load_inventories(args.cldf, clts, data['Doculect'])
 
     for row in args.cldf['CognateTable']:
         cc = data['Cognateset'].get(row['Cognateset_ID'])
