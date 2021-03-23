@@ -51,7 +51,7 @@ ${util.data()}
 
 <li class="bullet-list"><p>Ferraz Gerardi, Fabrício(2020) <a href="https://github.com/UniversalDependencies/UD_Munduruku-TuDeT/tree/dev"> UniversalDependencies/UD_Munduruku-TuDeT: Mundurukú Treebank </a>.</p></li>
 
-<li class="bullet-list"><p>Ferraz Gerardi, Fabrício &amp; Merzhevitch, Tatiana (2020) <a href="https://github.com/UniversalDependencies/UD_Tupinamba-TuDeT/tree/dev"> UniversalDependencies/UD_Tupinamba-TuDeT: Tupinambá Treebank </a>.</p></li>
+<li class="bullet-list"><p>Ferraz Gerardi, Fabrício &amp; Merzhevich, Tatiana (2020) <a href="https://github.com/UniversalDependencies/UD_Tupinamba-TuDeT/tree/dev"> UniversalDependencies/UD_Tupinamba-TuDeT: Tupinambá Treebank </a>.</p></li>
 
 
 </ul>
