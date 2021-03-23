@@ -25,7 +25,7 @@ setup(
         'clld-cognacy-plugin',
         'pyglottolog',
         'clldmpg',
-
+        'pyclts>=3.0',
 ],
 extras_require={
         'dev': ['flake8', 'waitress'],
