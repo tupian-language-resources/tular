@@ -15,7 +15,13 @@
         <h4>Contributors</h4>
         <ul>
             % for c in ctx.primary_contributors:
-                <li>${c.name}</li>
+                <li>${c.name}${' ({})'.format(c.description) if c.description else ''}</li>
+            % endfor
+        </ul>
+        with
+        <ul>
+        % for c in ctx.secondary_contributors:
+                <li>${c.name}${' ({})'.format(c.description) if c.description else ''}</li>
             % endfor
         </ul>
     </div>

@@ -100,10 +100,16 @@ def main(args):
             cid = slug(HumanName(contrib['Name']).last)
             contributor = data['Contributor'].get(cid)
             if not contributor:
-                contributor = data.add(common.Contributor, cid, id=cid, name=contrib['Name'])
+                contributor = data.add(
+                    common.Contributor, cid,
+                    id=cid,
+                    name=contrib['Name'],
+                    description=contrib.get('Affiliation'),
+                )
             DBSession.add(common.ContributionContributor(
                 contribution=contribution,
                 contributor=contributor,
+                primary='author' in contrib['Role'].lower(),
                 ord=i,
             ))
 
