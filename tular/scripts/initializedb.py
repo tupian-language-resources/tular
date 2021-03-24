@@ -80,6 +80,7 @@ def main(args):
     clts = CLTS(input('Path to cldf-clts/clts [{}]: '.format(str(clts_dir))) or clts_dir)
 
     for db, rec in DATASETS.items():
+        print(db, rec.doi, rec.tag)
         dbdir = root.joinpath(db)
         assert dbdir.exists()
         md = jsonlib.load(dbdir / 'metadata.json')
