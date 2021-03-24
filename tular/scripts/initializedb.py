@@ -1,5 +1,6 @@
 import pathlib
 import itertools
+import packaging.version
 import collections
 
 from clldutils.misc import slug
@@ -16,6 +17,7 @@ from clld_cognacy_plugin.models import Cognate, Cognateset
 from clld_glottologfamily_plugin.models import Family
 from clld_ipachart_plugin.util import load_inventories
 from pyclts import CLTS
+from zenodoclient import oai
 
 import tular
 from tular.models import Doculect, Word, Concept, Example, Database
@@ -33,10 +35,7 @@ SUBGROUPS = {
     'Tupi-Guarani': 'c663333',
     'Omagua-Kokama': 'c336633',
 }
-DATASETS = collections.OrderedDict([
-    ('tuled', 'https://doi.org/10.5281/zenodo.4629306'),
-    ('tudet', None),
-])
+DATASETS = collections.OrderedDict([('tuled', None), ('tudet', None),])
 
 
 def add_sources(sources_file_path, session):
@@ -48,6 +47,16 @@ def add_sources(sources_file_path, session):
 
 
 def main(args):
+    for (org, repos), recs in itertools.groupby(
+        sorted(
+            oai.Records('tular'),
+            key=lambda r: (r.repos.org, r.repos.repos, r.version),
+            reverse=True),
+        lambda r: (r.repos.org, r.repos.repos),
+    ):
+        if org == 'tupian-language-resources' and repos in DATASETS:
+            DATASETS[repos] = next(recs)
+
     data = Data()
     dataset = data.add(
         common.Dataset, 'tular',
@@ -70,16 +79,19 @@ def main(args):
     clts_dir = rd / '..' / 'cldf-clts' / 'clts-data'
     clts = CLTS(input('Path to cldf-clts/clts [{}]: '.format(str(clts_dir))) or clts_dir)
 
-    for db, doi in DATASETS.items():
+    for db, rec in DATASETS.items():
         dbdir = root.joinpath(db)
         assert dbdir.exists()
         md = jsonlib.load(dbdir / 'metadata.json')
+        name = md['title']
+        if md['description']:
+            name += ': {}'.format(md['description'])
         contribution = data.add(
             Database, db,
             id=db,
-            name=md['title'],
-            description=md['description'],
-            doi=doi,
+            name=name,
+            description=rec.citation if rec else None,
+            doi=rec.doi if rec else None,
         )
         header, contribs = next(iter_markdown_tables(
             dbdir.joinpath('CONTRIBUTORS.md').read_text(encoding='utf8')))

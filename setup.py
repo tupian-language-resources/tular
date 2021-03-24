@@ -21,6 +21,7 @@ setup(
     install_requires=[
         'clld',  # >=7.0
         'conllu',
+        'zenodoclient>=0.4',
         'clld-glottologfamily-plugin>=4.0',
         'clld-cognacy-plugin',
         'clld-ipachart-plugin',

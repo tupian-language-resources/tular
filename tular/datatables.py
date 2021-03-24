@@ -86,18 +86,28 @@ class Words(datatables.Values):
         return res
 
 
+class DOICol(Col):
+    def format(self, item):
+        if item.doi:
+            return HTML.a(
+                HTML.img(
+                    src="https://zenodo.org/badge/DOI/{}.svg".format(item.doi),
+                    class_="doi",
+                    alt="DOI: {}".format(item.doi)),
+                href="https://doi.org/{}".format(item.doi))
+
+
 class Databases(Contributions):
     def col_defs(self):
         return [
             LinkCol(self, 'name'),
-            Col(self, 'description'),
-            ContributorsCol(self, 'contributor'),
-            Col(self,
+            Col(self, 'description', sTitle='Cite as'),
+            DOICol(
+                self,
                 'doi',
                 bSearchable=False,
                 bSortable=False,
-                sTitle='DOI',
-                format=lambda i: i.doi_link()),
+                sTitle='Zenodo'),
         ]
 
 
