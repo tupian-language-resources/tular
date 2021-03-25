@@ -11,7 +11,7 @@ def glottolog_link(req, lang):
 
 
 def language_detail_html(context=None, request=None, **kw):
-    return context.render_inventory()
+    return context.render_inventory(request=request)
 
 
 def fix_conllu(s):

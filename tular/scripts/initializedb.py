@@ -1,6 +1,5 @@
 import pathlib
 import itertools
-import packaging.version
 import collections
 
 from clldutils.misc import slug
@@ -15,8 +14,7 @@ from pycldf import Dataset
 from nameparser import HumanName
 from clld_cognacy_plugin.models import Cognate, Cognateset
 from clld_glottologfamily_plugin.models import Family
-from clld_ipachart_plugin.util import load_inventories
-from pyclts import CLTS
+from clld_ipachart_plugin.util import load_inventories, clts_from_input
 from zenodoclient import oai
 
 import tular
@@ -76,8 +74,7 @@ def main(args):
     rd = pathlib.Path(tular.__file__).parent.parent.parent.resolve()
     root = input('Project dir [{}]: '.format(str(rd)))
     root = pathlib.Path(root) if root else rd
-    clts_dir = rd / '..' / 'cldf-clts' / 'clts-data'
-    clts = CLTS(input('Path to cldf-clts/clts [{}]: '.format(str(clts_dir))) or clts_dir)
+    clts = clts_from_input(rd / '..' / 'cldf-clts' / 'clts-data')
 
     for db, rec in DATASETS.items():
         print(db, rec.doi, rec.tag)

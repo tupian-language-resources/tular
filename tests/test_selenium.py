@@ -8,5 +8,6 @@ def test_ui(selenium):
     selenium.browser.get(selenium.url('/languages'))
     time.sleep(3)
     selenium.browser.get(selenium.url('/sources'))
-
+    time.sleep(3)
+    selenium.browser.get(selenium.url('/languages/Akuntsu#tipa'))
     time.sleep(3)

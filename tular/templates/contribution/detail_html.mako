@@ -7,7 +7,7 @@
         <div class="well">
             <h4>Cite as</h4>
             <blockquote>
-                ${ctx.description}
+                ${ctx.description.replace('&amp;', '&')}
             </blockquote>
         </div>
     % endif

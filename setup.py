@@ -24,7 +24,7 @@ setup(
         'zenodoclient>=0.4',
         'clld-glottologfamily-plugin>=4.0',
         'clld-cognacy-plugin',
-        'clld-ipachart-plugin',
+        'clld-ipachart-plugin>=0.2',
         'pyglottolog',
         'clldmpg',
         'pyclts>=3.0',
@@ -32,7 +32,6 @@ setup(
 extras_require={
         'dev': ['flake8', 'waitress'],
         'test': [
-            'mock',
             'pytest>=5.4',
             'pytest-clld',
             'pytest-mock',
