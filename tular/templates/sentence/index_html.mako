@@ -40,6 +40,10 @@
             % for sent in sorted(sentences, key=lambda s: int(s.id.split('-')[1])):
                 <li class="sentence">
                     <div class="well well-small">
+                        <div class="section" id="sentence-${sent.id}" style="float: left; margin-right: 1em;">
+                            <a href="#top" title="go to top of the page" style="vertical-align: bottom">&#x21eb;</a>
+                            <a href="#sentence-${sent.id}" title="Permalink to this sentence">¶</a>
+                        </div>
                         ${h.rendered_sentence(sent)|n}
                     </div>
                     <table class="table table-nonfluid table-condensed">

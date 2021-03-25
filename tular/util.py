@@ -20,10 +20,8 @@ def fix_conllu(s):
         if not line.startswith('#'):
             parts = line.split('\t')
             if len(parts) >= 8:
-                print(parts)
                 if parts[8] == '{}:{}'.format(parts[6], parts[7]):
                     parts[8] = '_'
-                    print(parts)
                     line = '\t'.join(parts)
         fixed.append(line)
     return '\n'.join(fixed)
