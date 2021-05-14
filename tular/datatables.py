@@ -5,6 +5,7 @@ from clld.web.util.helpers import map_marker_img, link
 from clld.web.util.htmllib import HTML
 from clld.db.util import get_distinct_values
 from clld.db.models import common
+from clld.web.util import doi
 
 from tular import models
 
@@ -89,12 +90,7 @@ class Words(datatables.Values):
 class DOICol(Col):
     def format(self, item):
         if item.doi:
-            return HTML.a(
-                HTML.img(
-                    src="https://zenodo.org/badge/DOI/{}.svg".format(item.doi),
-                    class_="doi",
-                    alt="DOI: {}".format(item.doi)),
-                href="https://doi.org/{}".format(item.doi))
+            return doi.link(self.dt.req, item)
 
 
 class Databases(Contributions):

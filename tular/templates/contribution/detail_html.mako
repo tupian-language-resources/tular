@@ -9,6 +9,7 @@
             <blockquote>
                 ${ctx.description.replace('&amp;', '&')}
             </blockquote>
+            <p>${u.doi_link(req, ctx)}</p>
         </div>
     % endif
     <div class="well">

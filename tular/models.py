@@ -10,8 +10,6 @@ import conllu
 from clld import interfaces
 from clld.db.meta import Base, CustomModelMixin, DBSession
 from clld.db.models.common import Language, Parameter, ValueSet, Value, Sentence, Contribution
-from clld.web.util.helpers import external_link
-from clld_cognacy_plugin.models import Cognate
 from clld_ipachart_plugin.models import InventoryMixin
 from clld_glottologfamily_plugin.models import HasFamilyMixin
 
@@ -80,9 +78,3 @@ class Example(CustomModelMixin, Sentence):
 class Database(CustomModelMixin, Contribution):
     pk = Column(Integer, ForeignKey('contribution.pk'), primary_key=True)
     doi = Column(Unicode)
-
-    def doi_link(self):
-        if self.doi:
-            return external_link(
-                'https://doi.org/{0.doi}'.format(self), label='DOI: {0.doi}'.format(self))
-        return ''

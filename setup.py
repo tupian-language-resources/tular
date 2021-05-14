@@ -19,7 +19,7 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=[
-        'clld',  # >=7.0
+        'clld>=7.4.2',
         'conllu',
         'zenodoclient>=0.4',
         'clld-glottologfamily-plugin>=4.0',

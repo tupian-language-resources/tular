@@ -2,12 +2,17 @@ from sqlalchemy import func
 from clld.db.models import common
 from clld.db.meta import DBSession
 from clld.web.util import glottolog
+from clld.web.util import doi
 
 
 def glottolog_link(req, lang):
     if lang.glottocode:
         return glottolog.link(req, lang.glottocode, label=lang.glottocode)
     return ''
+
+
+def doi_link(req, db):
+    return doi.link(req, db) or ''
 
 
 def language_detail_html(context=None, request=None, **kw):
