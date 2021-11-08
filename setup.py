@@ -19,14 +19,14 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=[
-        'clld>=7.4.2',
+        'clld>=8',
         'conllu',
         'zenodoclient>=0.4',
         'clld-glottologfamily-plugin>=4.0',
         'clld-cognacy-plugin',
         'clld-ipachart-plugin>=0.2',
         'pyglottolog',
-        'clldmpg',
+        'clldmpg>=4.2',
         'pyclts>=3.0',
 ],
 extras_require={
