@@ -61,9 +61,10 @@ class Words(datatables.Values):
     def col_defs(self):
         res = []
 
-        if self.language:
+        if self.language or not self.parameter:
             res.extend([
                 LinkCol(self, 'concept', get_object=lambda i: i.valueset.parameter, model_col=common.Parameter.name),
+                Col(self, 'portuguese', get_object=lambda i: i.valueset.parameter, model_col=models.Concept.portuguese),
                 #IntegerIdCol(self, 'id', model_col=Concept.id,
                 #    get_object=lambda x: x.valueset.parameter),
                 #ConceptLinkCol(self, 'concept', model_col=Concept.name,
@@ -80,7 +81,7 @@ class Words(datatables.Values):
             Col(self, 'tokens', model_col=models.Word.tokens, sTitle='Tokens'),
             Col(self, 'simple_cognate', input_size='mini', model_col=models.Word.simple_cognate, sTitle='Simple Cognate'),
             PartialCognatesCol(self, 'partial_cognate', model_col=models.Word.partial_cognate, sTitle='Partial Cognate'),
-            Col(self, 'notes', model_col=models.Word.notes, sTitle='Notes'),
+            #Col(self, 'notes', model_col=models.Word.notes, sTitle='Notes'),
             Col(self, 'morphemes', model_col=models.Word.morphemes, sTitle='Morphemes')]
         )
 
