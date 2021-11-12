@@ -10,7 +10,7 @@ import conllu
 from clld import interfaces
 from clld.db.meta import Base, CustomModelMixin, DBSession
 from clld.db.models.common import Language, Parameter, ValueSet, Value, Sentence, Contribution
-from clld_ipachart_plugin.models import InventoryMixin
+from clld_ipachart_plugin.models import InventoryMixin, Segment
 from clld_glottologfamily_plugin.models import HasFamilyMixin
 
 #-----------------------------------------------------------------------------
@@ -34,6 +34,13 @@ class Doculect(CustomModelMixin, Language, HasFamilyMixin, InventoryMixin):
     def treebank_url(self, req):
         if self.has_treebank:
             return req.route_url('sentences', _query=dict(language=self.id))
+
+    def make_segment(self, sound_bipa, sound_name, request=None, **_):
+        return Segment(
+            sound_bipa=sound_bipa,
+            sound_name=sound_name or '',
+            href='https://clts.clld.org/parameters/{}'.format(sound_name.replace(' ', '_'))
+                if sound_name else None)
 
 
 @implementer(interfaces.IParameter)
