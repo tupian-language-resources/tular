@@ -20,7 +20,7 @@ ${consonants_css}
         <h2>${_('Language')} ${ctx.name}</h2>
         % if ctx.has_treebank:
             <p>
-                <a href="$ctx.treebank_url(req)">
+                <a href="${ctx.treebank_url(req)}">
                     <img width="20" src="${req.static_url('tular:static/logo-ud.png')}">
                     <strong>Treebank</strong>
                 </a>

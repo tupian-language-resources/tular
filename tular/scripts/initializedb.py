@@ -32,6 +32,7 @@ SUBGROUPS = {
     'Tuparí': 'c666633',
     'Tupi-Guarani': 'c663333',
     'Omagua-Kokama': 'c336633',
+    None: 'c663333',
 }
 DATASETS = collections.OrderedDict([('tuled', None), ('tudet', None),])
 
