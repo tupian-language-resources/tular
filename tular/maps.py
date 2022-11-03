@@ -8,7 +8,7 @@ from tular import models
 
 class LanguagesMap(Map):
     def get_options(self):
-        return {'max_zoom': 12, 'base_layer': 'Esri.WorldImagery'}
+        return {'max_zoom': 12}
 
     def get_legends(self):
         items = []
