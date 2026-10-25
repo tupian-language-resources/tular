@@ -27,7 +27,7 @@ setup(
         'clld-cognacy-plugin<1.0',
         'clld-ipachart-plugin>=0.2',
         'pyglottolog',
-        'clldmpg>=4.2',
+        'clldmpg>=4.5',
         'pyclts>=3.0',
         'psycopg2',
 ],
