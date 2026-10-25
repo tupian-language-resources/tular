@@ -37,7 +37,7 @@
 % else:
         <h2>Dependency treebank for ${lang.name}</h2>
         <ol>
-            % for sent in sorted(sentences, key=lambda s: int(s.id.split('-')[1])):
+            % for sent in sorted(sentences, key=lambda s: (0, int(s.id.split('-')[1]), '') if s.id.split('-')[1].replace('_', '').isdigit() else (1, 0, s.id)):
                 <li class="sentence">
                     <div class="well well-small">
                         <div class="section" id="sentence-${sent.id}" style="float: left; margin-right: 1em;">

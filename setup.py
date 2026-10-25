@@ -23,7 +23,8 @@ setup(
         'conllu',
         'zenodoclient>=0.4',
         'clld-glottologfamily-plugin>=4.0',
-        'clld-cognacy-plugin',
+        # 1.0 adds cognate.polymorphic_type, which the tular database does not have.
+        'clld-cognacy-plugin<1.0',
         'clld-ipachart-plugin>=0.2',
         'pyglottolog',
         'clldmpg>=4.2',
